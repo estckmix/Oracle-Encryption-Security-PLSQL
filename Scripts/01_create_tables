@@ -1,0 +1,19 @@
+CREATE TABLE secure_data (
+    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id NUMBER UNIQUE NOT NULL,
+    encrypted_ssn RAW(2000) NOT NULL,
+    encrypted_ccn RAW(2000) NOT NULL
+);
+
+CREATE TABLE user_keys (
+    user_id NUMBER PRIMARY KEY,
+    key_value RAW(32) NOT NULL
+);
+
+CREATE TABLE security_audit (
+    audit_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_name VARCHAR2(100),
+    action VARCHAR2(50),
+    accessed_data VARCHAR2(4000),
+    access_time TIMESTAMP DEFAULT SYSTIMESTAMP
+);
